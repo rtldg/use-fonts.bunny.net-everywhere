@@ -1,0 +1,18 @@
+{
+	"manifest_version": 2,
+	"name": "Use fonts.bunny.net everywhere",
+	"author": "rtldg",
+	"version": "1.0",
+	"description": "a",
+	"homepage_url": "https://github.com/rtldg/use-fonts-dot-bunny-dot-net",
+
+	"permissions": [
+		"webRequest",
+		"webRequestBlocking",
+		"<all_urls>"
+	],
+
+	"background": {
+		"scripts": ["background.js"]
+	}
+}

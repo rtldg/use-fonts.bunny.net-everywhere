@@ -1,0 +1,28 @@
+{
+	"manifest_version": 3,
+	"name": "Use fonts.bunny.net everywhere",
+	"author": "rtldg",
+	"version": "1.0",
+	"description": "Uses fonts.bunny.net everywhere instead of Google Fonts",
+	"homepage_url": "https://github.com/rtldg/use-fonts.bunny.net-everywhere",
+	"icons": {
+		"48": "icons/48.png",
+		"96": "icons/96.png"
+	},
+
+	"host_permissions": [
+		"*://*/*"
+	],
+
+	"permissions": [
+		"declarativeNetRequest"
+	],
+
+	"declarative_net_request": {
+		"rule_resources": [{
+			"id": "ruleset1",
+			"enabled": true,
+			"path": "ruleset1.json"
+		}]
+	}
+}

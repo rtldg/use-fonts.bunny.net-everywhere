@@ -1,0 +1,25 @@
+[
+	{
+		"id": 1,
+		"priority": 1,
+		"action": {
+			"type": "redirect",
+			"redirect": {
+				"transform": {
+					"scheme": "https",
+					"host": "fonts.bunny.net"
+				}
+			}
+		},
+		"condition": {
+			"urlFilter": "||fonts.googleapis.com/css*",
+			"resourceTypes": [
+				"font",
+				"main_frame",
+				"stylesheet",
+				"sub_frame",
+				"xmlhttprequest"
+			]
+		}
+	}
+]
