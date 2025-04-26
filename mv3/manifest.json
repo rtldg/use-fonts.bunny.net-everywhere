@@ -3,6 +3,11 @@
 	"name": "Use fonts.bunny.net everywhere",
 	"author": "rtldg",
 	"version": "1.0",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "use-fonts.bunny.net-everywhere@rtldg"
+		}
+	},
 	"description": "Uses fonts.bunny.net everywhere instead of Google Fonts",
 	"homepage_url": "https://github.com/rtldg/use-fonts.bunny.net-everywhere",
 	"icons": {
