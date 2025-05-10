@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Use fonts.bunny.net everywhere",
 	"author": "rtldg",
-	"version": "1.1",
+	"version": "1.0",
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "use-fonts.bunny.net-everywhere@rtldg"
@@ -22,10 +22,6 @@
 	"permissions": [
 		"declarativeNetRequest"
 	],
-
-	"background": {
-		"scripts": ["background.js"]
-	},
 
 	"declarative_net_request": {
 		"rule_resources": [{
