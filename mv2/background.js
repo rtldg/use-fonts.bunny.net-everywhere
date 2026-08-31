@@ -26,8 +26,8 @@ function headersListener(details) {
 				}
 			});
 
-		// Finally return the updated details object with the original CSP header replaces with
-		// out updated header.
+		// Finally return the updated details object with the original CSP header replaced with
+		// our updated header.
 		return {
 			...details,
 			responseHeaders: [
