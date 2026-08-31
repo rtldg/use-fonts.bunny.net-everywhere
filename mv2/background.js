@@ -1,7 +1,11 @@
 function headersListener(details) {
 	// Only add fonts.bunny.net to the CSP header if a CSP header already is present.
-	const isReportOnly = details.responseHeaders.map(h => h.name.toLowerCase() === "content-security-policy-report-only").length > 0;
-	const csp = details.responseHeaders.filter(h => h.name.toLowerCase() === (isReportOnly ?  "content-security-policy-report-only" : "content-security-policy")).map(h => h.value)[0];
+	const cspHeaderName = details.responseHeaders.filter(h => h.name.toLowerCase() === "content-security-policy-report-only").length > 0
+		? "content-security-policy-report-only"
+		: "content-security-policy"
+	const csp = details.responseHeaders
+		.filter(h => h.name.toLowerCase() === cspHeaderName)
+		.map(h => h.value)[0];
 	if (csp) {
 		// Parse the CSP header in order to rewrite the parts regarding the style and font sources.
 		const parsedCsp = csp
@@ -31,8 +35,8 @@ function headersListener(details) {
 		return {
 			...details,
 			responseHeaders: [
-				...details.responseHeaders.filter(h => h.name.toLowerCase() !== (isReportOnly ? "content-security-policy-report-only" : "content-security-policy")),
-				{ name: isReportOnly ? "content-security-policy-report-only" : "content-security-policy", value: updatedCsp.map(pd => `${pd.directive} ${pd.value}`).join('; ') }
+				...details.responseHeaders.filter(h => h.name.toLowerCase() !== cspHeaderName),
+				{ name: cspHeaderName, value: updatedCsp.map(pd => `${pd.directive} ${pd.value}`).join('; ') }
 			]
 		};
 	}
