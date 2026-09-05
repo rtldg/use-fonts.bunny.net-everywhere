@@ -1,19 +1,15 @@
 function headersListener(details) {
 	return {
 		...details,
-		responseHeaders: [
-			...details.responseHeaders.filter(h => !["content-security-policy", "content-security-policy-report-only"].includes(h.name.toLowerCase())),
-			...processCspHeader(details.responseHeaders, "content-security-policy"),
-			...processCspHeader(details.responseHeaders, "content-security-policy-report-only")
-		]
+		responseHeaders: details.responseHeaders.map(processCspHeader)
 	};
 }
 
-function processCspHeader(responseHeaders, name) {
-	const csp = responseHeaders.filter(h => h.name.toLowerCase() === name).map(h => h.value)[0];
-	if (csp) {
+function processCspHeader(h) {
+	const is_csp = ["content-security-policy", "content-security-policy-report-only"].includes(h.name.toLowerCase());
+	if (is_csp) {
 		// Parse the CSP header in order to rewrite the parts regarding the style and font sources.
-		const parsedCsp = csp
+		const parsedCsp = h.value
 			.split(';')
 			.map(pd => {
 				const parts = pd.trim().split(" ").map(v => v.trim());
@@ -22,8 +18,8 @@ function processCspHeader(responseHeaders, name) {
 		// Add Fonts Bunny to style and font sources. Note that we cannot remove the Google Fonts sources
 		// since that will prevent the rewriting of the actual style and font requests. I.e. the CSP need
 		// to contain _both_ Google Fonts and Fonts Bunny sources for this to work.
-		return [{
-			name,
+		return {
+			name: h.name,
 			value: parsedCsp
 				.map(pd => {
 					switch (pd.directive) {
@@ -37,10 +33,10 @@ function processCspHeader(responseHeaders, name) {
 				})
 				.map(pd => `${pd.directive} ${pd.value}`)
 				.join('; ')
-		}];
+		};
+	} else {
+		return h;
 	}
-
-	return [];
 }
 
 function reqListener(details) {
