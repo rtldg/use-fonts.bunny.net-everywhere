@@ -24,9 +24,17 @@ function processCspHeader(h) {
 				.map(pd => {
 					switch (pd.directive) {
 						case "style-src":
-							return { ...pd, value: `${pd.value} https://fonts.bunny.net` };
+							if (pd.value.includes("https://fonts.googleapis.com")) {
+								return { ...pd, value: `${pd.value} https://fonts.bunny.net` };
+							} else {
+								return pd;
+							}
 						case "font-src":
-							return { ...pd, value: `${pd.value} data: https://fonts.bunny.net`}
+							if (pd.value.includes("https://fonts.gstatic.com")) {
+								return { ...pd, value: `${pd.value} data: https://fonts.bunny.net`}
+							} else {
+								return pd;
+							}
 						default:
 							return pd;
 					}
